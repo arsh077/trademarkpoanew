@@ -1,0 +1,6 @@
+{
+  "name": "Trademark POA Generator",
+  "description": "Generate an interactive Form TM-48 (Trade Marks Act, 1999) Power of Attorney. Fill out the application details to see a live preview and print or save as a PDF.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

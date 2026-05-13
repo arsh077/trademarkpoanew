@@ -13,7 +13,10 @@
 @media print {
   @page {
     size: A4 portrait;
-    margin: 10mm;
+    margin: 0 !important;
+  }
+  html, body, #root {
+    background-color: #CAD2C5 !important;
   }
   * {
     -webkit-print-color-adjust: exact !important;

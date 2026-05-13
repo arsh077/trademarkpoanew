@@ -25,7 +25,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen bg-paper text-ink font-body flex flex-col print:bg-white print:h-auto overflow-hidden">
+    <div className="h-screen bg-paper text-ink font-body flex flex-col print:bg-[#CAD2C5] print:min-h-screen overflow-hidden print:overflow-visible">
       {/* HEADER - Hidden when printing */}
       <header className="border-b border-editorial sticky top-0 z-10 print:hidden px-6 lg:px-10 pt-8 pb-4 flex items-end justify-between shrink-0 bg-paper">
         <div className="flex items-end justify-between w-full max-w-[1400px] mx-auto">
@@ -201,10 +201,10 @@ export default function App() {
         </div>
 
         {/* PREVIEW SECTION - Adjusted for print */}
-        <div className="w-full h-full bg-[#ECEAE6] p-6 sm:p-10 flex justify-center items-start overflow-y-auto print:bg-white print:p-0 print:overflow-visible">
+        <div className="w-full h-full bg-[#ECEAE6] p-6 sm:p-10 flex justify-center items-start overflow-y-auto print:bg-[#CAD2C5] print:p-0 print:overflow-visible">
           
           {/* The A4 "Paper" */}
-          <div ref={previewRef} className="bg-[#CAD2C5] w-full sm:max-w-[750px] mx-auto shadow-[0_10px_30px_rgba(0,0,0,0.05)] relative p-10 sm:p-14 flex flex-col font-display text-[12px] print:shadow-none print:bg-[#CAD2C5]">
+          <div ref={previewRef} className="bg-[#CAD2C5] w-full sm:max-w-[750px] mx-auto shadow-[0_10px_30px_rgba(0,0,0,0.05)] relative p-10 sm:p-14 flex flex-col font-display text-[12px] print:shadow-none print:bg-[#CAD2C5] print:w-full print:max-w-none print:min-h-[297mm]">
             
             <div className="absolute top-10 right-10 sm:right-14 text-[10px] sm:text-[11px] font-bold tracking-[0.15em] text-right">
               INDIA

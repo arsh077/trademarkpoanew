@@ -204,7 +204,7 @@ export default function App() {
         <div className="w-full h-full bg-[#ECEAE6] p-6 sm:p-10 flex justify-center items-start overflow-y-auto print:bg-white print:p-0 print:overflow-visible">
           
           {/* The A4 "Paper" */}
-          <div ref={previewRef} className="bg-white w-full sm:max-w-[750px] mx-auto shadow-[0_10px_30px_rgba(0,0,0,0.05)] relative p-10 sm:p-14 flex flex-col font-display text-[12px] print:shadow-none">
+          <div ref={previewRef} className="bg-[#CAD2C5] w-full sm:max-w-[750px] mx-auto shadow-[0_10px_30px_rgba(0,0,0,0.05)] relative p-10 sm:p-14 flex flex-col font-display text-[12px] print:shadow-none print:bg-[#CAD2C5]">
             
             <div className="absolute top-10 right-10 sm:right-14 text-[10px] sm:text-[11px] font-bold tracking-[0.15em] text-right">
               INDIA

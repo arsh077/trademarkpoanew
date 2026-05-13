@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { Printer, User, Briefcase, Scale } from 'lucide-react';
-import html2pdf from 'html2pdf.js';
 
 export default function App() {
   const previewRef = useRef<HTMLDivElement>(null);
@@ -11,7 +10,10 @@ export default function App() {
     designation: '',
     attorneyNames: '',
     attorneyCode: '',
-    attorneyAddress: ''
+    attorneyAddress: '',
+    dateDay: '',
+    dateMonth: '',
+    dateYear: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -19,17 +21,7 @@ export default function App() {
   };
 
   const handlePrint = () => {
-    if (!previewRef.current) return;
-    
-    const opt = {
-      margin:       0,
-      filename:     `TM-48_${formData.ownerName || 'Applicant'}.pdf`,
-      image:        { type: 'jpeg' as const, quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' as const }
-    };
-
-    html2pdf().set(opt).from(previewRef.current).save();
+    window.print();
   };
 
   return (
@@ -122,6 +114,35 @@ export default function App() {
                   placeholder="e.g. Managing Director" 
                 />
               </div>
+
+              <div className="pt-2">
+                <label className="block text-[10px] uppercase tracking-[0.08em] mb-1 text-[#666]">
+                  Date of Execution
+                </label>
+                <div className="flex gap-2">
+                  <input 
+                    name="dateDay"
+                    value={formData.dateDay}
+                    onChange={handleChange}
+                    className="w-1/3 bg-transparent border-0 border-b border-editorial py-2 text-[14px] font-body text-ink outline-none placeholder-[#BBB] italic focus:border-accent focus:ring-0 rounded-none transition-colors" 
+                    placeholder="Day (e.g. 15th)" 
+                  />
+                  <input 
+                    name="dateMonth"
+                    value={formData.dateMonth}
+                    onChange={handleChange}
+                    className="w-1/3 bg-transparent border-0 border-b border-editorial py-2 text-[14px] font-body text-ink outline-none placeholder-[#BBB] italic focus:border-accent focus:ring-0 rounded-none transition-colors" 
+                    placeholder="Month" 
+                  />
+                  <input 
+                    name="dateYear"
+                    value={formData.dateYear}
+                    onChange={handleChange}
+                    className="w-1/3 bg-transparent border-0 border-b border-editorial py-2 text-[14px] font-body text-ink outline-none placeholder-[#BBB] italic focus:border-accent focus:ring-0 rounded-none transition-colors" 
+                    placeholder="Year (e.g. 24)" 
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -183,29 +204,29 @@ export default function App() {
         <div className="w-full h-full bg-[#ECEAE6] p-6 sm:p-10 flex justify-center items-start overflow-y-auto print:bg-white print:p-0 print:overflow-visible">
           
           {/* The A4 "Paper" */}
-          <div ref={previewRef} className="bg-white w-full sm:max-w-[750px] shadow-[0_10px_30px_rgba(0,0,0,0.05)] relative p-10 sm:p-14 flex flex-col font-display text-[12px] print:w-full print:max-w-none print:shadow-none print:p-0 print:text-[11pt]">
+          <div ref={previewRef} className="bg-white w-full sm:max-w-[750px] mx-auto shadow-[0_10px_30px_rgba(0,0,0,0.05)] relative p-10 sm:p-14 flex flex-col font-display text-[12px] print:shadow-none">
             
-            <div className="absolute top-10 right-10 sm:right-14 text-[10px] sm:text-[11px] font-bold tracking-[0.15em] text-right print:text-[11pt]">
+            <div className="absolute top-10 right-10 sm:right-14 text-[10px] sm:text-[11px] font-bold tracking-[0.15em] text-right">
               INDIA
             </div>
 
             <div className="text-center mb-6 pt-4">
-              <h1 className="font-display text-[14px] sm:text-[16px] uppercase tracking-[0.1em] font-bold mb-1 print:text-[16pt]">FORM TM-48</h1>
-              <p className="font-bold uppercase text-[11px] sm:text-[12px] tracking-wider print:text-[12pt]">THE TRADE MARKS ACT, 1999</p>
+              <h1 className="font-display text-[14px] sm:text-[16px] uppercase tracking-[0.1em] font-bold mb-1">FORM TM-48</h1>
+              <p className="font-bold uppercase text-[11px] sm:text-[12px] tracking-wider">THE TRADE MARKS ACT, 1999</p>
             </div>
 
-            <div className="text-right text-[11px] sm:text-[12px] font-bold leading-relaxed mb-6 print:text-[11pt]">
+            <div className="text-right text-[11px] sm:text-[12px] font-bold leading-relaxed mb-6">
               <p>Agent's Code No.: {formData.attorneyCode || '___________'}</p>
             </div>
 
             <div className="text-center mb-8">
-              <h2 className="font-bold text-[13px] sm:text-[14px] print:text-[14pt]">Form of authorization of an Agent</h2>
-              <p className="text-[11px] sm:text-[12px] font-semibold print:text-[12pt]">(Section 145, Rule 21)</p>
+              <h2 className="font-bold text-[13px] sm:text-[14px]">Form of authorization of an Agent</h2>
+              <p className="text-[11px] sm:text-[12px] font-semibold">(Section 145, Rule 21)</p>
             </div>
 
-            <div className="text-justify space-y-4 flex-grow font-display text-[11px] sm:text-[12px] leading-[1.7] sm:leading-[1.8] print:text-[10pt] print:leading-[1.7]">
+            <div className="text-justify space-y-4 flex-grow font-display text-[11px] sm:text-[12px] leading-[1.7] sm:leading-[1.8]">
               <p>I/We,</p>
-              <p className="pl-6 font-bold min-h-[40px] uppercase text-[10px] sm:text-[11px] leading-relaxed print:text-[10pt]">
+              <p className="pl-6 font-bold min-h-[40px] uppercase text-[10px] sm:text-[11px] leading-relaxed">
                 {formData.ownerName ? formData.ownerName : '____________________________________________________________________________________'}
                 <br/>
                 {formData.address ? formData.address.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>) : '____________________________________________________________________________________'}
@@ -231,40 +252,40 @@ export default function App() {
 
               <p>All communications relating to this application may be sent to the following address in India:</p>
 
-              <div className="text-center font-bold uppercase text-[10px] sm:text-[11px] leading-relaxed ml-auto mr-auto max-w-[80%] min-h-[50px] print:text-[10pt]">
+              <div className="text-center font-bold uppercase text-[10px] sm:text-[11px] leading-relaxed ml-auto mr-auto max-w-[80%] min-h-[50px]">
                 {formData.attorneyAddress ? formData.attorneyAddress.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>) : '____________________________________________________________________\n____________________________________________________________________'}
               </div>
 
               <p className="mt-[20px] pt-4">
-                Dated this <span className="inline-block w-[30px] border-b border-[#333] print:border-black mx-1"></span> day of <span className="inline-block w-[100px] border-b border-[#333] print:border-black mx-1"></span> , 20<span className="inline-block w-[30px] border-b border-[#333] print:border-black mx-1"></span> .
+                Dated this <span className="inline-block min-w-[30px] px-1 text-center font-bold border-b border-[#333] print:border-black mx-1">{formData.dateDay}</span> day of <span className="inline-block min-w-[100px] px-2 text-center font-bold border-b border-[#333] print:border-black mx-1">{formData.dateMonth}</span> , 20<span className="inline-block min-w-[30px] px-1 text-center font-bold border-b border-[#333] print:border-black mx-1">{formData.dateYear}</span> .
               </p>
             </div>
 
-            <div className="mt-[40px] flex justify-between items-end pb-[20px] print:mt-[50px]">
-              <div className="text-[10px] sm:text-[11px] leading-[1.6] print:text-[10pt]">
+            <div className="mt-[40px] flex justify-between items-end pb-[20px]">
+              <div className="text-[10px] sm:text-[11px] leading-[1.6]">
                 <p>To</p>
                 <address className="not-italic">
                   The Registrar of Trade Marks,<br/>
                   The Office of the Trade Marks Registry,<br/>
                   MUMBAI / CALCUTTA / AHMEDABAD / DELHI / CHENNAI
                 </address>
-                <p className="mt-4 font-bold text-[9px] sm:text-[10px] print:text-[9pt]">NO LEGALIZATION NECESSARY</p>
+                <p className="mt-4 font-bold text-[9px] sm:text-[10px]">NO LEGALIZATION NECESSARY</p>
               </div>
               
-              <div className="text-right w-[200px] sm:w-[250px] text-[11px] sm:text-[12px] space-y-4 print:text-[11pt]">
+              <div className="text-right w-[200px] sm:w-[250px] text-[11px] sm:text-[12px] space-y-4">
                 <div className="flex items-end justify-between">
                   <span className="shrink-0 mr-2">Signature :</span>
                   <div className="border-b border-[#333] print:border-black border-dashed w-full h-[20px]"></div>
                 </div>
                 <div className="flex items-end justify-between">
                   <span className="shrink-0 mr-2">Name of the Signatory :</span>
-                  <div className="border-b border-[#333] print:border-black w-full text-center px-2 font-bold uppercase text-[9px] sm:text-[10px] truncate h-[20px] print:text-[9pt]">
+                  <div className="border-b border-[#333] print:border-black w-full text-center px-2 font-bold uppercase text-[9px] sm:text-[10px] truncate h-[20px]">
                     {formData.signatoryName}
                   </div>
                 </div>
                 <div className="flex items-end justify-between">
                   <span className="shrink-0 mr-2">Designation :</span>
-                  <div className="border-b border-[#333] print:border-black w-full text-center px-2 font-bold uppercase text-[9px] sm:text-[10px] truncate h-[20px] print:text-[9pt]">
+                  <div className="border-b border-[#333] print:border-black w-full text-center px-2 font-bold uppercase text-[9px] sm:text-[10px] truncate h-[20px]">
                     {formData.designation}
                   </div>
                 </div>
